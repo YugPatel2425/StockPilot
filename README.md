@@ -3,7 +3,6 @@
 > **Academic Project:** Full-Stack Web Application  
 > **Status:** Active Development
 
-## 📖 Vision Document
 
 ### 1. Project Overview
 **StockPilot** is a comprehensive virtual stock market simulation platform. It allows users to practice buying and selling stocks using virtual currency in a realistic, risk-free environment. By simulating real-market conditions, StockPilot bridges the gap between theoretical finance knowledge and practical trading experience.
