@@ -112,9 +112,8 @@ Follow these instructions to run the project locally using Docker.
     ```
 
 4.  **Access the Application**
-    * **Frontend:** http://localhost:5173
-    * **Backend API Docs:** http://localhost:8000/docs
-    * **Database:** Accessible via port 5432
+    * **Frontend:** http://localhost:3000
+    * **Database:** Accessible via port 3001
 
 ### Manual Setup (Without Docker)
 *See `/backend/README.md` and `/frontend/README.md` for individual setup instructions.*
