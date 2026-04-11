@@ -310,14 +310,47 @@ export interface StockNews {
 
 export async function getStockNews(symbol: string, count: number = 6): Promise<StockNews[]> {
   const sym = normalizeSymbol(symbol)
+
+  // ── Strategy 1: Yahoo Finance query1 API ─────────────────────
+  // This is the same endpoint the official Yahoo Finance site uses internally.
+  // It reliably returns news without needing an API key.
   try {
-    const result = await yahooFinance.search(sym, { newsCount: count })
-    return (result.news || []).map((n: any) => ({
+    const url = `https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(sym)}&newsCount=${count}&quotesCount=0&enableFuzzyQuery=false`
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'application/json',
+      },
+    })
+    if (res.ok) {
+      const json = await res.json()
+      const articles: any[] = json?.news || []
+      if (articles.length > 0) {
+        return articles.slice(0, count).map((n: any) => ({
+          title: n.title || '',
+          publisher: n.publisher || '',
+          link: n.link || '',
+          publishedAt: n.providerPublishTime
+            ? new Date(n.providerPublishTime * 1000).toISOString()
+            : '',
+          thumbnail: n.thumbnail?.resolutions?.[0]?.url || '',
+        }))
+      }
+    }
+  } catch (err) {
+    console.warn(`query1 news fetch failed for ${sym}:`, err)
+  }
+
+  // ── Strategy 2: yahoo-finance2 SDK search fallback ───────────
+  try {
+    const result: any = await yahooFinance.search(sym, { newsCount: count, quotesCount: 0 } as any)
+    const news: any[] = result?.news || []
+    return news.map((n: any) => ({
       title: n.title || '',
       publisher: n.publisher || '',
       link: n.link || '',
       publishedAt: n.providerPublishTime
-        ? new Date(n.providerPublishTime).toISOString()
+        ? new Date(n.providerPublishTime * 1000).toISOString()
         : '',
       thumbnail: n.thumbnail?.resolutions?.[0]?.url || '',
     }))

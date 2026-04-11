@@ -65,6 +65,67 @@
   --duo-shadow: hsl(220 20% 80%);
 }
 
+/* ═══════════════════════════════════════════════════════════
+   DARK THEME
+   ═══════════════════════════════════════════════════════════ */
+
+.dark {
+  --background: hsl(222 20% 10%);
+  --foreground: hsl(210 20% 94%);
+  --card: hsl(222 18% 14%);
+  --card-foreground: hsl(210 20% 94%);
+  --popover: hsl(222 18% 14%);
+  --popover-foreground: hsl(210 20% 94%);
+  --primary: hsl(145 55% 48%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(222 16% 20%);
+  --secondary-foreground: hsl(210 15% 75%);
+  --muted: hsl(222 16% 18%);
+  --muted-foreground: hsl(220 10% 56%);
+  --accent: hsl(38 90% 58%);
+  --accent-foreground: hsl(0 0% 100%);
+  --destructive: hsl(0 65% 58%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(222 14% 22%);
+  --input: hsl(222 16% 20%);
+  --ring: hsl(145 55% 48%);
+  --chart-1: hsl(145 55% 48%);
+  --chart-2: hsl(38 90% 58%);
+  --chart-3: hsl(210 70% 60%);
+  --chart-4: hsl(280 55% 65%);
+  --chart-5: hsl(0 65% 58%);
+  --sidebar: hsl(222 18% 12%);
+  --sidebar-foreground: hsl(210 20% 94%);
+  --sidebar-primary: hsl(145 55% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(222 16% 20%);
+  --sidebar-accent-foreground: hsl(210 15% 75%);
+  --sidebar-border: hsl(222 14% 22%);
+  --sidebar-ring: hsl(145 55% 48%);
+  --success: hsl(145 55% 48%);
+  --warning: hsl(38 90% 58%);
+
+  /* Duolingo tokens — dark variants */
+  --duo-green: hsl(145 55% 48%);
+  --duo-green-dark: hsl(145 55% 36%);
+  --duo-green-light: hsl(145 30% 16%);
+  --duo-blue: hsl(210 70% 60%);
+  --duo-blue-dark: hsl(210 70% 48%);
+  --duo-blue-light: hsl(210 40% 14%);
+  --duo-orange: hsl(38 90% 58%);
+  --duo-orange-dark: hsl(38 90% 46%);
+  --duo-orange-light: hsl(38 55% 14%);
+  --duo-red: hsl(0 65% 58%);
+  --duo-red-dark: hsl(0 65% 46%);
+  --duo-red-light: hsl(0 40% 14%);
+  --duo-purple: hsl(280 55% 65%);
+  --duo-purple-dark: hsl(280 55% 52%);
+  --duo-purple-light: hsl(280 35% 14%);
+  --duo-yellow: hsl(50 90% 58%);
+  --duo-shadow: hsl(222 20% 6%);
+}
+
+
 @theme inline {
   --font-sans: 'Inter', 'Geist', 'Geist Fallback', system-ui, sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
@@ -318,8 +379,8 @@
 
 .duo-card:hover {
   transform: translateY(-2px);
-  border-color: hsl(220 14% 78%);
-  box-shadow: 0 4px 12px hsl(220 20% 80% / 0.3);
+  border-color: var(--duo-green);
+  box-shadow: 0 4px 16px hsl(var(--duo-shadow) / 0.2);
 }
 
 .duo-card:active {
@@ -428,7 +489,7 @@
 }
 
 .duo-btn-outline {
-  background: white;
+  background: var(--card);
   border-color: var(--border);
   color: var(--foreground);
 }

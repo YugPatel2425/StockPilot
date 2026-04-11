@@ -29,7 +29,9 @@ export default function LoginPage() {
         password,
       })
       if (error) throw error
-      router.push('/dashboard')
+      // Use window.location for a hard navigation to ensure the server
+      // sees the freshly-set auth cookies on the very next request.
+      window.location.href = '/dashboard'
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {

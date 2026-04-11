@@ -33,13 +33,33 @@ export async function middleware(request: NextRequest) {
     },
   })
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  let user = null
+  try {
+    const { data } = await supabase.auth.getUser()
+    user = data.user
+  } catch {
+    // Network error (e.g. DNS failure) — fall back to checking for
+    // auth token cookies so auth still works when Supabase is unreachable
+    // from the server but reachable from the browser.
+    const hasAuthCookie = request.cookies.getAll().some(
+      (c) => c.name.startsWith('sb-') && c.name.endsWith('-auth-token')
+    )
+    if (hasAuthCookie) {
+      // Auth cookies exist; let the request through rather than
+      // incorrectly redirecting to login.
+      return supabaseResponse
+    }
+  }
 
   if (request.nextUrl.pathname.startsWith('/dashboard') && !user) {
     const url = request.nextUrl.clone()
     url.pathname = '/auth/login'
+    return NextResponse.redirect(url)
+  }
+
+  if (request.nextUrl.pathname.startsWith('/auth') && user) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/dashboard'
     return NextResponse.redirect(url)
   }
 

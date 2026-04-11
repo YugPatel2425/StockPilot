@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'AI not configured' }, { status: 500 })
         }
 
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
+        const model = genAI.getGenerativeModel({ model: 'gemini-3-flash-preview' })
 
         // Build chat history from messages
         const history = messages.slice(0, -1).map((msg: { role: string; content: string }) => ({

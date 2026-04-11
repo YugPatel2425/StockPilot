@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import React from 'react'
+import { ThemeToggle } from './theme-toggle'
 
 /* ── Trader Levels ─────────────────────────────────────────── */
 const LEVELS = [
@@ -77,6 +78,8 @@ export function DashboardHeader({ displayName, balance, tradeCount = 0 }: {
         </div>
 
         <span className="hidden lg:block text-sm font-semibold text-muted-foreground">{displayName}</span>
+
+        <ThemeToggle />
 
         <button
           onClick={handleSignOut}

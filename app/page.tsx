@@ -5,8 +5,14 @@ import { Button } from '@/components/ui/button'
 import { TrendingUp, BarChart3, Wallet, ArrowRight, Zap, Trophy, Target, Sparkles, BookOpen, ShieldCheck, LineChart, GraduationCap } from 'lucide-react'
 
 export default async function HomePage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  let user = null
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    user = data.user
+  } catch {
+    // Network error — show landing page
+  }
 
   if (user) {
     redirect('/dashboard')
